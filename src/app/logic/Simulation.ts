@@ -19,7 +19,7 @@ const shuffle = (array: string[]) => {
 };
 
 export const simulateGame = (): SimulationResult => {
-  let turns: Turn[] = [];
+  const turns: Turn[] = [];
   let deck = [...INITIAL_DECK]; // デッキをコピー
   let hand: string[] = [];
   let discard: string[] = [];

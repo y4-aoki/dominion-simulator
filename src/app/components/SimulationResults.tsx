@@ -11,6 +11,8 @@ import { Chart, Tooltip as ChartTooltip, CategoryScale, LinearScale, BarElement,
 Chart.register(ChartTooltip, CategoryScale, LinearScale, BarElement, Title, Legend, PointElement, LineElement);
 
 const SimulationResultComponent = ({ simulationData }: { simulationData: SimulationResult | null }) => {
+  const [expandedTurn, setExpandedTurn] = useState<number | null>(null);
+  
   if (!simulationData) {
     return (
       <Paper sx={{ p: 3 }}>
@@ -20,7 +22,6 @@ const SimulationResultComponent = ({ simulationData }: { simulationData: Simulat
     );
   }
 
-  const [expandedTurn, setExpandedTurn] = useState<number | null>(null);
 
   // グラフデータの準備
   const chartData = {
