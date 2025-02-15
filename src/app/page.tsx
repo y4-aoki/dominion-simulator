@@ -20,11 +20,17 @@ export default function Home() {
     <>
       <Header />
       <Container maxWidth="lg" sx={{ mt: 4 }}>
-        <Box sx={{ display: "flex", gap: 4 }}>
-          <Box sx={{ width: "40%" }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" }, // xs で縦並び、md 以上で横並び
+            gap: 4,
+          }}
+        >
+          <Box sx={{ width: { xs: "100%", md: "40%" } }}>
             <SimulationSettings onStart={handleSimulationStart} />
           </Box>
-          <Box sx={{ width: "60%" }}>
+          <Box sx={{ width: { xs: "100%", md: "60%" } }}>
             <SimulationResults simulationData={simulationData} />
           </Box>
         </Box>

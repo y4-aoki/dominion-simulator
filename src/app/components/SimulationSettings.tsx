@@ -32,8 +32,8 @@ export default function SimulationSettings({ onStart }: { onStart: () => void })
         <Divider sx={{ my: 1 }} />
         <FormControl component="fieldset" sx={{ width: "100%" }}>
           <RadioGroup row value={simulationType} onChange={(e) => setSimulationType(e.target.value)}>
-            <FormControlLabel value="single" control={<Radio />} label="1ゲーム" />
-            <FormControlLabel value="repeat" control={<Radio />} label="複数回試す" />
+            <FormControlLabel value="single" control={<Radio disabled />} label="1ゲーム" />
+            <FormControlLabel value="repeat" control={<Radio disabled />} label="複数回試す" />
           </RadioGroup>
         </FormControl>
       </Box>
@@ -61,6 +61,7 @@ export default function SimulationSettings({ onStart }: { onStart: () => void })
               fullWidth
               size="small"
               sx={{ mb: 1 }}
+              disabled
             />
           </li>
           <li>
@@ -71,6 +72,7 @@ export default function SimulationSettings({ onStart }: { onStart: () => void })
               onChange={(e) => setTurnLimit(Number(e.target.value))}
               fullWidth
               size="small"
+              disabled
             />
           </li>
         </ul>
@@ -89,7 +91,7 @@ export default function SimulationSettings({ onStart }: { onStart: () => void })
               </IconButton>
             </Tooltip>
           </Box>
-          <Select value={strategy} size="small" onChange={(e) => setStrategy(e.target.value)}>
+          <Select value={strategy} size="small" onChange={(e) => setStrategy(e.target.value)} disabled>
             <MenuItem value="treasureOnly">財宝のみ購入</MenuItem>
           </Select>
         </FormControl>
