@@ -94,6 +94,9 @@ export default function SimulationSettings({ config, onConfigChange, onStart }: 
             onChange={(e) => {
               const newStrategy = availableStrategies.find((s) => s.name === e.target.value) || availableStrategies[0];
               setSelectedStrategy(newStrategy);
+              setSelectedActionStrategy(newStrategy.actionStrategies[0]);
+              setSelectedBuyStrategy(newStrategy.buyStrategies[0]);
+              onConfigChange({ ...config, playActionPhase: newStrategy.actionStrategies[0].execute, playBuyPhase: newStrategy.buyStrategies[0].execute })
             }}
 
           >

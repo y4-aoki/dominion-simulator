@@ -4,6 +4,7 @@ export type BaseState = {
     hand: string[];
     discard: string[];
     inPlay: string[];
+    trash: string[];
     gold: number;
     actions: number;
     buys: number;

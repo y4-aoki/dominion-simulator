@@ -12,7 +12,6 @@ Chart.register(ChartTooltip, CategoryScale, LinearScale, BarElement, Title, Lege
 
 const SimulationResultComponent = ({ simulationData }: { simulationData: SimulationResult | null }) => {
   const [expandedTurn, setExpandedTurn] = useState<number | null>(null);
-  console.log(simulationData);
   
   if (!simulationData) {
     return (
@@ -83,6 +82,7 @@ const SimulationResultComponent = ({ simulationData }: { simulationData: Simulat
                   <Typography variant="body2">アクションカード: {turn.inPlay.join(", ")}</Typography>
                   <Typography variant="body2">山札: {turn.deck.join(", ")}</Typography>
                   <Typography variant="body2">捨て札: {turn.discard.join(", ")}</Typography>
+                  <Typography variant="body2">廃棄: {turn.trash.join(", ")}</Typography>
                 </Box>
               )}
             </div>

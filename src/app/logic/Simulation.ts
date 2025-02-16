@@ -22,6 +22,7 @@ export const simulateGame = ({
     hand: [],
     discard: [],
     inPlay: [],
+    trash: [],
     gold: 0,
     actions: 1,
     buys: 1,
@@ -56,8 +57,6 @@ export const simulateGame = ({
     state = buyResult.newState;
     provinceCount += buyResult.purchases.filter((card) => card === "属州").length;
 
-    console.log(state.deck);
-
     turns.push({
       turnNumber,
       purchases: [...buyResult.purchases], // 配列もコピー
@@ -66,6 +65,7 @@ export const simulateGame = ({
       hand: [...state.hand], // 手札の状態をコピー
       discard: [...state.discard], // 捨て札の状態をコピー
       inPlay: [...state.inPlay], // 場に出ているカードもコピー
+      trash: [...state.trash],
       gold: purchasableGold,
       actions: state.actions,
       buys: state.buys,
@@ -93,6 +93,5 @@ export const simulateGame = ({
     }
   }
 
-  console.log(turns);
   return { turns, finalGold: state.gold, gameEndReason: provinceCount >= goalProvinces ? "属州を買い切った" : "ターン制限" };
 };
