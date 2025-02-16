@@ -119,11 +119,15 @@ export const ChapelEstateAndTotalCopperTrashStrategy: ActionStrategy = {
         return sum;
       }, 0);
 
+      
       // 金量が4を超えていたら、4以下になるまで銅貨を廃棄
+      const goldToRemove = totalGoldAmount - 4; // 余分な金量
       const coppersToTrash = [];
-      while (totalGoldAmount > 4 && newState.hand.includes("銅貨")) {
+      let removedGold = 0;
+      while (removedGold < goldToRemove && newState.hand.includes("銅貨")) {
         newState.hand.splice(newState.hand.indexOf("銅貨"), 1);
         coppersToTrash.push("銅貨");
+        removedGold += 1;
       }
 
       // 廃棄置き場へ追加

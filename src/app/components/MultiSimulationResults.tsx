@@ -57,17 +57,20 @@ export const MultiSimulationResults = ({ turnCounts }: { turnCounts: number[] })
   return (
     <Paper sx={{ p: 3, display: "flex", flexDirection: "column", gap: 3 }}>
       {/* 棒グラフの表示 */}
-      <Box sx={{ height: 400 }}>
+      <Box>
         <Typography variant="h6">ターン数</Typography>
         <Divider sx={{ my: 1 }} />
         <Bar data={chartData} />
       </Box>
 
-      <Typography variant="body1">平均ターン数: {avgTurn}</Typography>
-      <Typography variant="body1">中央値ターン数: {medianTurn}</Typography>
-      <Typography variant="body1">最小ターン数: {minTurn}</Typography>
-      <Typography variant="body1">最大ターン数: {maxTurn}</Typography>
-
+      <Box>
+        <Typography variant="h6">集計</Typography>
+        <Divider sx={{ my: 1 }} />
+        <Typography variant="body1">平均ターン数: {avgTurn}</Typography>
+        <Typography variant="body1">中央値ターン数: {medianTurn}</Typography>
+        <Typography variant="body1">最小ターン数: {minTurn}</Typography>
+        <Typography variant="body1">最大ターン数: {maxTurn}</Typography>
+      </Box>
     </Paper>
   );
 };
