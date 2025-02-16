@@ -12,6 +12,7 @@ Chart.register(ChartTooltip, CategoryScale, LinearScale, BarElement, Title, Lege
 
 const SimulationResultComponent = ({ simulationData }: { simulationData: SimulationResult | null }) => {
   const [expandedTurn, setExpandedTurn] = useState<number | null>(null);
+  console.log(simulationData);
   
   if (!simulationData) {
     return (
@@ -79,7 +80,7 @@ const SimulationResultComponent = ({ simulationData }: { simulationData: Simulat
               {expandedTurn === index && (
                 <Box sx={{ pl: 3 }}>
                   <Typography variant="body2">初期手札: {turn.initialHand.join(", ")}</Typography>
-                  <Typography variant="body2">アクションカード: {turn.actions.join(", ")}</Typography>
+                  <Typography variant="body2">アクションカード: {turn.inPlay.join(", ")}</Typography>
                   <Typography variant="body2">山札: {turn.deck.join(", ")}</Typography>
                   <Typography variant="body2">捨て札: {turn.discard.join(", ")}</Typography>
                 </Box>

@@ -5,15 +5,22 @@ import { Container, Box } from "@mui/material";
 import Header from "./components/Header";
 import SimulationSettings from "./components/SimulationSettings";
 import SimulationResults from "./components/SimulationResults";
-import { SimulationResult } from "./types";
+import { SimulationConfig, SimulationResult } from "./types";
 import { simulateGame } from "./logic/Simulation";
+import { TreasureOnlyStrategy } from "./logic/TreasureOnlyStrategy";
 
 export default function Home() {
   const [simulationData, setSimulationData] = useState<SimulationResult | null>(null);
 
+  const [config, setConfig] = useState<SimulationConfig>({
+    strategy: TreasureOnlyStrategy, // 型チェックが適用される
+    maxTurns: 30,
+    goalProvinces: 8,
+  });
+
   const handleSimulationStart = () => {
-    const result = simulateGame(); // シミュレーション実行
-    setSimulationData(result); // 結果をstateに保存
+    const result = simulateGame(config.strategy, config.maxTurns, config.goalProvinces);
+    setSimulationData(result);
   };
 
   return (
