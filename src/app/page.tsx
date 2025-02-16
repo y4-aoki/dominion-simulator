@@ -9,12 +9,14 @@ import { SimulationConfig, SimulationResult } from "./types";
 import { simulateGame } from "./logic/Simulation";
 import { NoActionStrategy } from "./logic/ActionStrategies";
 import { TreasureOnlyBuyStrategy } from "./logic/BuyStrategies";
+import { MultiSimulationResults } from "./components/MultiSimulationResults";
 
 export default function Home() {
   const [simulationData, setSimulationData] = useState<SimulationResult | null>(null);
+  const [turnCounts, setTurnCounts] = useState<number[]>([]);
 
   const [config, setConfig] = useState<SimulationConfig>({
-    simulationType: "single",
+    simulationType: "single", // 初期設定は "single"
     maxTurns: 30,
     goalProvinces: 5,
     playActionPhase: NoActionStrategy.execute,
@@ -22,8 +24,18 @@ export default function Home() {
   });
 
   const handleSimulationStart = () => {
-    const result = simulateGame(config);
-    setSimulationData(result);
+    if (config.simulationType === "single") {
+      // "single" シミュレーション: 1回の結果を得る
+      const result = simulateGame(config);
+      setSimulationData(result);
+    } else if (config.simulationType === "repeat") {
+      // "repeat" シミュレーション: 10000回のターン数を集める
+      const turnResults = Array.from({ length: 10000 }, () => {
+        const result = simulateGame(config);
+        return result.turns.length;
+      });
+      setTurnCounts(turnResults);
+    }
   };
 
   return (
@@ -41,7 +53,12 @@ export default function Home() {
             <SimulationSettings config={config} onConfigChange={setConfig} onStart={handleSimulationStart} />
           </Box>
           <Box sx={{ width: { xs: "100%", md: "60%" } }}>
-            <SimulationResults simulationData={simulationData} />
+            {/* simulationType による条件付き描画 */}
+            {config.simulationType === "single" ? (
+              <SimulationResults simulationData={simulationData} />
+            ) : (
+              <MultiSimulationResults turnCounts={turnCounts} />
+            )}
           </Box>
         </Box>
       </Container>

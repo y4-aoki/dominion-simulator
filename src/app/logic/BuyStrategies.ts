@@ -57,7 +57,7 @@ export const SilverOnlyBuyStrategy: BuyStrategy = {
 export const ChapelBuyStrategy: BuyStrategy = {
   name: "礼拝堂+財宝購入",
   descriptions: [
-    "デッキに礼拝堂がない場合、4金以下なら礼拝堂を購入",
+    "デッキに礼拝堂がない かつ 4金以下なら礼拝堂を購入",
     "8金以上なら属州を購入",
     "6金以上なら金貨を購入",
     "3金以上なら銀貨を購入",

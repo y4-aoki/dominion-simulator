@@ -16,7 +16,7 @@ const shuffle = (array: string[]) => {
 export const simulateGame = ({
   maxTurns, goalProvinces, playActionPhase, playBuyPhase }: SimulationConfig
 ): SimulationResult => {
-  let turns: Turn[] = [];
+  const turns: Turn[] = [];
   let state: GameState = {
     deck: shuffle([...INITIAL_DECK]),
     hand: [],
@@ -53,7 +53,7 @@ export const simulateGame = ({
       0
     );
     const purchasableGold = state.gold;
-    let buyResult = playBuyPhase(state);
+    const buyResult = playBuyPhase(state);
     state = buyResult.newState;
     provinceCount += buyResult.purchases.filter((card) => card === "属州").length;
 

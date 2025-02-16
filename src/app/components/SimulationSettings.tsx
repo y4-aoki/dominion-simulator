@@ -22,11 +22,6 @@ export default function SimulationSettings({ config, onConfigChange, onStart }: 
       {/* シミュレーション種類 */}
       <Box>
         <Typography variant="h6">シミュレーション種類
-          <Tooltip title="1ゲームの詳細確認か、戦略を複数回試すかを選びます。" arrow>
-            <IconButton size="small" sx={{ ml: 1 }}>
-              <InfoOutlinedIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
         </Typography>
         <Divider sx={{ my: 1 }} />
         <FormControl component="fieldset" sx={{ width: "100%" }}>
@@ -35,8 +30,18 @@ export default function SimulationSettings({ config, onConfigChange, onStart }: 
             value={config.simulationType}
             onChange={(e) => onConfigChange({ ...config, simulationType: e.target.value as "single" | "repeat" })}
           >
-            <FormControlLabel value="single" control={<Radio />} label="1ゲーム" />
-            <FormControlLabel value="repeat" control={<Radio />} label="複数回試す" />
+            <FormControlLabel value="single" control={<Radio />} label="1ゲーム" sx={{ mr: 0 }} />
+            <Tooltip title="1ゲーム実行して毎ターンの詳細を確認します。" arrow>
+              <IconButton size="small">
+                <InfoOutlinedIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
+            <FormControlLabel value="repeat" control={<Radio />} label="10000ゲーム" sx={{ ml: 2, mr: 0 }} />
+            <Tooltip title="10000ゲーム実行して終了までにかかるターン数を計測します。" arrow>
+              <IconButton size="small">
+                <InfoOutlinedIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
           </RadioGroup>
         </FormControl>
       </Box>

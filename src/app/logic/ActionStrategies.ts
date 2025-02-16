@@ -36,12 +36,12 @@ export const ChapelEstateTrashStrategy: ActionStrategy = {
 };
 
 export const ChapelEstateAndHandCopperTrashStrategy: ActionStrategy = {
-  name: "手札内で銅貨を調整",
+  name: "手札内の金で廃棄調整",
   descriptions: [
     "手札に礼拝堂がある場合、屋敷を最大4枚まで廃棄する。",
-    "4 または 5 金 → 3 金になるまで廃棄",
-    "7 金 → 6 金になるまで廃棄",
-    "9 金以上 → 8 金になるまで廃棄",
+    "4 または 5 金 → 3 金になるまで銅貨を廃棄",
+    "7 金 → 6 金になるまで銅貨を廃棄",
+    "9 金以上 → 8 金になるまで銅貨を廃棄",
   ],
   execute: (state: GameState) => {
     const newState = { ...state };
@@ -92,10 +92,10 @@ export const ChapelEstateAndHandCopperTrashStrategy: ActionStrategy = {
 };
 
 export const ChapelEstateAndTotalCopperTrashStrategy: ActionStrategy = {
-  name: "デッキ内で銅貨を調整",
+  name: "全ての金で廃棄調整",
   descriptions: [
     "手札に礼拝堂がある場合、屋敷を最大4枚まで廃棄する。",
-    "さらに、すべてのカードの金量合計が4を超える場合、4以下になるまで銅貨を廃棄する。",
+    "さらに、所持しているカードの金の合計が4を超える場合、4になるまで銅貨を廃棄する。",
   ],
   execute: (state: GameState) => {
     const newState = { ...state };
