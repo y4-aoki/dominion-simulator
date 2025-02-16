@@ -1,5 +1,5 @@
 import { StrategyOption } from "@/types";
-import { ChapelEstateTrashStrategy, NoActionStrategy } from "./ActionStrategies";
+import { ChapelEstateAndHandCopperTrashStrategy, ChapelEstateAndTotalCopperTrashStrategy, ChapelEstateTrashStrategy, NoActionStrategy } from "./ActionStrategies";
 import { TreasureOnlyBuyStrategy, SilverOnlyBuyStrategy, ChapelBuyStrategy } from "./BuyStrategies";
 
 export const StrategyOptions: StrategyOption[] = [
@@ -12,7 +12,7 @@ export const StrategyOptions: StrategyOption[] = [
   {
     name: "礼拝堂ステロ",
     description: "礼拝堂を活用して廃棄しつつ、財宝を購入する戦略。",
-    actionStrategies: [ChapelEstateTrashStrategy],
+    actionStrategies: [ChapelEstateTrashStrategy, ChapelEstateAndHandCopperTrashStrategy, ChapelEstateAndTotalCopperTrashStrategy],
     buyStrategies: [ChapelBuyStrategy],
   },
 ];

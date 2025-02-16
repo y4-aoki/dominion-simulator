@@ -16,7 +16,7 @@ export default function Home() {
   const [config, setConfig] = useState<SimulationConfig>({
     simulationType: "single",
     maxTurns: 30,
-    goalProvinces: 8,
+    goalProvinces: 5,
     playActionPhase: NoActionStrategy.execute,
     playBuyPhase: TreasureOnlyBuyStrategy.execute
   });
