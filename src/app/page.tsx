@@ -7,19 +7,22 @@ import SimulationSettings from "./components/SimulationSettings";
 import SimulationResults from "./components/SimulationResults";
 import { SimulationConfig, SimulationResult } from "./types";
 import { simulateGame } from "./logic/Simulation";
-import { TreasureOnlyStrategy } from "./logic/TreasureOnlyStrategy";
+import { NoActionStrategy } from "./logic/ActionStrategies";
+import { TreasureOnlyBuyStrategy } from "./logic/BuyStrategies";
 
 export default function Home() {
   const [simulationData, setSimulationData] = useState<SimulationResult | null>(null);
 
   const [config, setConfig] = useState<SimulationConfig>({
-    strategy: TreasureOnlyStrategy, // 型チェックが適用される
+    simulationType: "single",
     maxTurns: 30,
     goalProvinces: 8,
+    playActionPhase: NoActionStrategy.execute,
+    playBuyPhase: TreasureOnlyBuyStrategy.execute
   });
 
   const handleSimulationStart = () => {
-    const result = simulateGame(config.strategy, config.maxTurns, config.goalProvinces);
+    const result = simulateGame(config);
     setSimulationData(result);
   };
 
@@ -35,7 +38,7 @@ export default function Home() {
           }}
         >
           <Box sx={{ width: { xs: "100%", md: "40%" } }}>
-            <SimulationSettings onStart={handleSimulationStart} />
+            <SimulationSettings config={config} onConfigChange={setConfig} onStart={handleSimulationStart} />
           </Box>
           <Box sx={{ width: { xs: "100%", md: "60%" } }}>
             <SimulationResults simulationData={simulationData} />

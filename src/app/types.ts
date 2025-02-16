@@ -25,14 +25,31 @@ export type SimulationResult = {
     gameEndReason: string;
 };
 
-// 戦略の型
-export type Strategy = {
+export type SimulationConfig = {
+    simulationType: "single" | "repeat";
+    maxTurns: number;
+    goalProvinces: number;
     playActionPhase: (state: GameState) => GameState;
     playBuyPhase: (state: GameState) => { newState: GameState; purchases: string[] };
 };
 
-export type SimulationConfig = {
-    strategy: Strategy; // 戦略の型を定義するなら Strategy 型を作る
-    maxTurns: number;
-    goalProvinces: number;
+// 戦略の型
+export type ActionStrategy = {
+    name: string;
+    descriptions: string[]; // アクション戦略の説明（箇条書き）
+    execute: (state: GameState) => GameState;
+};
+
+export type BuyStrategy = {
+    name: string;
+    descriptions: string[]; // 購入戦略の説明（箇条書き）
+    execute: (state: GameState) => { newState: GameState; purchases: string[] };
+};
+
+// 戦略オプション
+export type StrategyOption = {
+    name: string; // 戦略の名前
+    description: string; // 戦略の概要（1つの文字列）
+    actionStrategies: ActionStrategy[]; // 選べるアクション戦略
+    buyStrategies: BuyStrategy[]; // 選べる購入戦略
 };

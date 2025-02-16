@@ -1,13 +1,8 @@
 // src/simulation.ts
-import { GameState, SimulationResult, Strategy, Turn } from "@/types";
+import { GameState, SimulationConfig, SimulationResult, Turn } from "@/types";
 
 // 初期状態の設定
 const INITIAL_DECK = ["銅貨", "銅貨", "銅貨", "銅貨", "銅貨", "銅貨", "銅貨", "屋敷", "屋敷", "屋敷"];
-const GOLD_COSTS = {
-  "属州": 8,
-  "金貨": 6,
-  "銀貨": 3,
-};
 
 // シャッフル関数（簡単な実装）
 const shuffle = (array: string[]) => {
@@ -18,10 +13,8 @@ const shuffle = (array: string[]) => {
   return array;
 };
 
-export const simulateGame = (
-  strategy: Strategy,
-  maxTurns: number,
-  provinceLimit: number
+export const simulateGame = ({
+  maxTurns, goalProvinces, playActionPhase, playBuyPhase }: SimulationConfig
 ): SimulationResult => {
   let turns: Turn[] = [];
   let state: GameState = {
@@ -49,7 +42,7 @@ export const simulateGame = (
     const initialHand = [...state.hand];
 
     // アクションフェーズ
-    state = strategy.playActionPhase(state);
+    state = playActionPhase(state);
 
     // 購入フェーズ
     state.gold = state.hand.reduce(
@@ -59,7 +52,7 @@ export const simulateGame = (
       0
     );
     const purchasableGold = state.gold;
-    let buyResult = strategy.playBuyPhase(state);
+    let buyResult = playBuyPhase(state);
     state = buyResult.newState;
     provinceCount += buyResult.purchases.filter((card) => card === "属州").length;
 
@@ -86,7 +79,7 @@ export const simulateGame = (
     state.buys = 1;
 
     // ゲーム終了条件
-    if (provinceCount >= provinceLimit) break;
+    if (provinceCount >= goalProvinces) break;
 
     // 次のターンの手札をドロー
     for (let i = 0; i < 5; i++) {
@@ -101,5 +94,5 @@ export const simulateGame = (
   }
 
   console.log(turns);
-  return { turns, finalGold: state.gold, gameEndReason: provinceCount >= provinceLimit ? "属州を買い切った" : "ターン制限" };
+  return { turns, finalGold: state.gold, gameEndReason: provinceCount >= goalProvinces ? "属州を買い切った" : "ターン制限" };
 };
